@@ -1,0 +1,26 @@
+diff -ur ./config.mk ../b/config.mk
+--- ./config.mk	2018-07-25 22:49:14.000000000 -0500
++++ ../b/config.mk	2018-07-25 22:56:48.059207709 -0500
+@@ -19,8 +19,8 @@
+ # flags
+ CPPFLAGS = -DVERSION=\"${VERSION}\" \
+ 	   ${XINERAMAFLAGS}
+-CFLAGS = -g -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
+-LDFLAGS = -g ${LIBS}
++CFLAGS = -g -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS} ${RPM_OPT_FLAGS}
++LDFLAGS = -g ${LIBS} -znow
+ 
+ # Solaris
+ #CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"
+diff -ur ./Makefile ../b/Makefile
+--- ./Makefile	2018-07-25 22:49:14.000000000 -0500
++++ ../b/Makefile	2018-07-25 23:01:20.114545961 -0500
+@@ -55,7 +55,7 @@
+ 		if [ -x $$i ]; \
+ 		then \
+ 			echo CP $$i; \
+-			cp $$i ${DESTDIR}${PREFIX}/bin; \
++			cp -pf $$i ${DESTDIR}${PREFIX}/bin; \
+ 			chmod 755 ${DESTDIR}${PREFIX}/bin/$$i; \
+ 		fi \
+ 	done

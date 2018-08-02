@@ -37,7 +37,7 @@ clean:
 dist: clean
 	@echo creating dist tarball
 	@mkdir -p svkbd-${VERSION}
-	@cp LICENSE Makefile README config.def.h config.mk \
+	@cp LICENSE Makefile README.md config.def.h config.mk \
 		${SRC} svkbd-${VERSION}
 	@for i in layout.*.h; \
 	do \

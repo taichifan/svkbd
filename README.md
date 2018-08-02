@@ -40,5 +40,10 @@ window corner.
 Repository
 ----------
 
-	git clone http://git.suckless.org/svkbd
+	This was moved to github and is no longer at suckless.org. Now,
+	the original is at.
+	git clone https://github.com/ceemos/svkbd.git
+	This is a fork to allow it to be installed into Fedora and other
+	distributions. This combines the work from aur-archive.
+	git@github.com:taichifan/svkbd.git
 
