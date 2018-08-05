@@ -2,6 +2,8 @@
 # See LICENSE file for copyright and license details.
 
 include config.mk
+PKG_NAME = svkbd
+PGM_NAME = $(PKG_NAME)
 
 SRC = svkbd.c
 
@@ -47,6 +49,14 @@ dist: clean
 	@gzip svkbd-${VERSION}.tar
 	@rm -rf svkbd-${VERSION}
 
+dist-rpm: dist
+	@rm -rf ~/rpmbuild/*
+	@rpmdev-setuptree
+	@mv $(PKG_NAME)-${VERSION}.tar.gz ~/rpmbuild/SOURCES/
+	@cp $(PKG_NAME).spec ~/rpmbuild/SPECS
+	@cp svkbd-0.1-build.patch  ~/rpmbuild/SOURCES
+	@rpmbuild -v -ba --clean ~/rpmbuild/SPECS/$(PKG_NAME).spec
+
 install: all
 	@echo installing executable files to ${DESTDIR}${PREFIX}/bin
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
@@ -59,10 +69,6 @@ install: all
 			chmod 755 ${DESTDIR}${PREFIX}/bin/$$i; \
 		fi \
 	done
-#	@echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
-#	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
-#	@sed "s/VERSION/${VERSION}/g" < svkbd.1 > ${DESTDIR}${MANPREFIX}/man1/svkbd.1
-#	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/svkbd.1
 
 uninstall:
 	@echo removing executable files from ${DESTDIR}${PREFIX}/bin
